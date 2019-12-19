@@ -82,6 +82,7 @@
     </div>
 </body>
 <script src="./js/http.js"></script>
+<!-- 文章分类模板 -->
 <script id="cat_list" type="text/html">
     {{each data v}}
     <tr>
@@ -96,6 +97,7 @@
 </script>
 <script>
     $(function () {
+        // 页面一加载就发送ajax请求渲染页面
         $.ajax({
             url:BigNew.category_list,
             type:'get',
@@ -106,25 +108,34 @@
             }
         });
 
-
+        // 给模态框设置弹出事件
         $('#myModal').on('show.bs.modal', function (e) {
             // console.log(e.relatedTarget);
             var target = e.relatedTarget
             if (target.innerText == '新增分类') {
                 // console.log(e.relatedTarget.innerText);
+                // 模态框显示新增按钮
                 $('#myModal .btn-primary').text('新增')
             } else {
+                // 模态框显示编辑按钮
                 $('#myModal .btn-primary').text('编辑')
+                // 页面传值 (显示当前编辑的分类信息)
                 $('#recipient-name').val($(target).parent().prev().prev().text())
                 $('#message-text').val($(target).parent().prev().text())
+                // 将点击的编辑按钮的 data-id 赋值给 模态框的确认按钮
                 $('#myModal .btn-primary').attr('data-id',$(target).attr('data-id'))
             }
         })
+        // 模态框取消按钮跟关闭按钮事件
         $('.btn-cancel,.close>span').click(function () {
+            // 情空表单
             $('.modal-body>form')[0].reset()
         })
+
+        // 模态框确认按钮事件
         $('.modal-footer>.btn-primary').click(function () {
             if ($(this).text() == '新增') {
+                // 新增分类
                 $.ajax({
                     url:BigNew.category_add,
                     type:'post',
@@ -137,11 +148,13 @@
                         console.log(backData);
                         if (backData.code == 201) {
                             alert('新增成功');
+                            // 刷新页面
                             window.location.reload()
                         }
                     }
                 });
             } else {
+                // 编辑分类
                 $.ajax({
                     url:BigNew.category_edit,
                     type:'post',
@@ -155,16 +168,20 @@
                         console.log(backData);
                         if (backData.code == 200) {
                             alert('修改成功');
+                            // 刷新页面
                             window.location.reload()
                         }
                     }
                 });
             }
         })
-
+        // 删除分类
+        // 删除按钮是ajax动态生成的,需要注册委托事件
         $('.table>tbody').on('click','.btn-delete',function () {
+            // 获取当前点击按钮的 data-id
             var id = $(this).attr('data-id')
             // console.log(id);
+            // 删除分类  发送ajax请求
             $.ajax({
                 url:BigNew.category_delete,
                 type:'post',
