@@ -120,7 +120,7 @@
                 $('#myModal .btn-primary').attr('data-id',$(target).attr('data-id'))
             }
         })
-        $('.btn-cancel').click(function () {
+        $('.btn-cancel,.close>span').click(function () {
             $('.modal-body>form')[0].reset()
         })
         $('.modal-footer>.btn-primary').click(function () {
