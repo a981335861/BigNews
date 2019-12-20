@@ -197,6 +197,30 @@
                 }
             })
         }
+
+        // 删除文章
+        $('.table>tbody').on('click','.delete',function () {
+            // 获取id
+            var id = $(this).attr('data-id')
+            // console.log(id);
+            // 发送ajax请求
+            $.ajax({
+                url:BigNew.article_delete,
+                type:'post',
+                dataType:'json',
+                data:{id:id},
+                success: function(backData){
+                    // console.log(backData);
+                    if (backData.code == 204) {
+                        alert('删除成功');
+                        // 删除成功刷新页面
+                        window.location.reload();
+                    }
+                }
+            });
+        })
+        
+
     })
 
 
