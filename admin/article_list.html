@@ -122,7 +122,7 @@
             // 阻止表单默认跳转
             e.preventDefault()
             // ajax请求数据
-            getArticleList(1,true)
+            getArticleList(1, true)
         })
         // 一进入页面就调用筛选按钮
         $('#btnSearch').click();
@@ -160,7 +160,7 @@
                             方案二 ： 给getArticelList方法添加一个布尔类型参数，表示是否需要加载分页插件
                      */
                     if (flag) {
-                        loadPagination(backData.data.totalPage,currentPage);
+                        loadPagination(backData.data.totalPage, currentPage);
                     }
                 }
             })
@@ -192,35 +192,39 @@
                     //加载分页数据
                     //只有在 点击页数 与 当前页数 不一致才发送ajax请求
                     // if (page != startPage) {
-                        getArticleList(page);
+                    getArticleList(page);
                     // }
                 }
             })
         }
 
         // 删除文章
-        $('.table>tbody').on('click','.delete',function () {
+        $('.table>tbody').on('click', '.delete', function () {
             // 获取id
             var id = $(this).attr('data-id')
             // console.log(id);
             // 发送ajax请求
             $.ajax({
-                url:BigNew.article_delete,
-                type:'post',
-                dataType:'json',
-                data:{id:id},
-                success: function(backData){
+                url: BigNew.article_delete,
+                type: 'post',
+                dataType: 'json',
+                data: { id: id },
+                success: function (backData) {
                     // console.log(backData);
                     if (backData.code == 204) {
                         alert('删除成功');
                         // 删除成功刷新页面
                         window.location.reload();
+
                     }
                 }
             });
         })
-        
 
+        $('#release_btn').click(function () {
+            //左侧文章列表高亮
+            $('.level02>li:eq(1)', window.parent.document).addClass('active').siblings().removeClass('active');
+        })
     })
 
 

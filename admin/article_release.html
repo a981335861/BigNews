@@ -146,13 +146,13 @@
                     processData: false,
                     success: function (backData) {
                         console.log(backData);
-                        if(backData.code == 200){
-                        alert('发布成功');
-                        //跳转文章列表
-                        window.location.href = './article_list.html';
-                        //左侧文章列表高亮
-                        $('.level02>li:eq(0)',window.parent.document).addClass('active').siblings().removeClass('active');
-                    };
+                        if (backData.code == 200) {
+                            alert('发布成功');
+                            //跳转文章列表
+                            window.location.href = './article_list.html';
+                            //左侧文章列表高亮
+                            $('.level02>li:eq(0)', window.parent.document).addClass('active').siblings().removeClass('active');
+                        };
                     }
                 });
             }
